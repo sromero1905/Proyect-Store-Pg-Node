@@ -30,6 +30,11 @@ const ProductSchema = {
     }, brand:{
         allowNull: false,
         type: DataTypes.STRING
+    },
+    category:{
+        allowNull:false,
+        type:DataTypes.STRING,
+        defaultValue: 'others'
     }
 }
 
