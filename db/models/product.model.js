@@ -1,4 +1,3 @@
-const { allow } = require('joi')
 const {Sequelize, Model, DataTypes  } = require('sequelize')
 const { User, UserSchema, USER_TABLE } = require('./user.model')
 
@@ -30,11 +29,6 @@ const ProductSchema = {
     }, brand:{
         allowNull: false,
         type: DataTypes.STRING
-    },
-    category:{
-        allowNull:false,
-        type:DataTypes.STRING,
-        defaultValue: 'others'
     }
 }
 

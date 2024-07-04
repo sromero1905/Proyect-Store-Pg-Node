@@ -1,8 +1,7 @@
 const express = require('express');
-
-const CategoryService = require('./../services/category.service');
-const validatorHandler = require('./../middlewares/validator.handler');
-const { createCategorySchema, updateCategorySchema, getCategorySchema } = require('./../schemas/category.schema');
+const CategoryService = require('../services/category.service');
+const validatorHandler = require('../middlewares/validator.handler');
+const { createCategorySchema, updateCategorySchema, getCategorySchema } = require('../schemas/category.schema');
 
 const router = express.Router();
 const service = new CategoryService();
@@ -63,7 +62,7 @@ router.delete('/:id',
     try {
       const { id } = req.params;
       await service.delete(id);
-      res.status(201).json({id});
+      res.status(201).json({ id });
     } catch (error) {
       next(error);
     }

@@ -1,19 +1,18 @@
 const Joi = require('joi');
 
 const id = Joi.number().integer();
-const name = Joi.string().min(3).max(15);
+const title = Joi.string().min(3).max(50).required();
+
+const getCategorySchema = Joi.object({
+  id: id.required()
+});
 
 const createCategorySchema = Joi.object({
-  name: name.required(),
+  title: title
 });
 
 const updateCategorySchema = Joi.object({
-  name: name,
-
+  title: title
 });
 
-const getCategorySchema = Joi.object({
-  id: id.required(),
-});
-
-module.exports = { createCategorySchema, updateCategorySchema, getCategorySchema }
+module.exports = { getCategorySchema, createCategorySchema, updateCategorySchema };
