@@ -3,11 +3,21 @@ const { CategorySchema,CATEGORY_TABLE} = require('../models/category.model')
 /** @type {import('sequelize-cli').Migration} */
 
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    await queryInterface.createTable(CATEGORY_TABLE,CategorySchema)
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.addColumn(PRODUCT_TABLE, 'category_id', {
+      field: 'category_id',
+      allowNull: false,
+      type: Sequelize.INTEGER,
+      references: {
+        model: CATEGORY_TABLE,
+        key: 'id'
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'SET NULL'
+    });
   },
 
-  async down (queryInterface, Sequelize) {
-    await queryInterface.dropTable(CATEGORY_TABLE)
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.removeColumn(PRODUCT_TABLE, 'category_id');
   }
 };
