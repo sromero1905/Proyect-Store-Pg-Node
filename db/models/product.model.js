@@ -1,6 +1,6 @@
 const { Model, DataTypes, Sequelize } = require('sequelize');
-
 const { CATEGORY_TABLE } = require('./category.model');
+const { ORDER_PRODUCT_TABLE } = require('./order-product.model');
 
 const PRODUCT_TABLE = 'products';
 
@@ -9,48 +9,46 @@ const ProductSchema = {
     allowNull: false,
     autoIncrement: true,
     primaryKey: true,
-    type: DataTypes.INTEGER
+    type: DataTypes.INTEGER,
   },
   name: {
-    type: DataTypes.STRING,
     allowNull: false,
-  },
-  image: {
     type: DataTypes.STRING,
-    allowNull: false,
   },
   description: {
-    type: DataTypes.TEXT,
     allowNull: false,
+    type: DataTypes.STRING,
   },
   price: {
+    allowNull: false,
     type: DataTypes.INTEGER,
-    allowNull: false,
   },
-  createdAt: {
+  brand: {
     allowNull: false,
-    type: DataTypes.DATE,
-    field: 'created_at',
-    defaultValue: Sequelize.NOW,
+    type: DataTypes.STRING,
   },
   categoryId: {
     field: 'category_id',
-    allowNull: false,
+    allowNull: true,
     type: DataTypes.INTEGER,
     references: {
       model: CATEGORY_TABLE,
-      key: 'id'
+      key: 'id',
     },
     onUpdate: 'CASCADE',
-    onDelete: 'SET NULL'
-  }
-}
-
+    onDelete: 'SET NULL',
+  },
+};
 
 class Product extends Model {
-
   static associate(models) {
     this.belongsTo(models.Category, { as: 'category' });
+    this.belongsToMany(models.Order, {
+      as: 'orders',
+      through: models.OrderProduct,
+      foreignKey: 'productId',
+      otherKey: 'orderId',
+    });
   }
 
   static config(sequelize) {
@@ -58,8 +56,8 @@ class Product extends Model {
       sequelize,
       tableName: PRODUCT_TABLE,
       modelName: 'Product',
-      timestamps: false
-    }
+      timestamps: false,
+    };
   }
 }
 
