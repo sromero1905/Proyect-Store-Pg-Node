@@ -38,6 +38,7 @@ app.use(express.json());
 app.use(logErrors);
 app.use(boomErrorHandler);
 app.use(errorHandler);
+require('./utils/auth')
 
 
 
