@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const routerApi = require('./routes');
+require('dotenv').config()
 
 const { logErrors, errorHandler, boomErrorHandler } = require('./middlewares/error.handler');
 
@@ -21,13 +22,6 @@ const options = {
 }
 app.use(cors(options));
 
-app.get('/', (req, res) => {
-  res.send('Hola mi server en express');
-});
-
-app.get('/nueva-ruta', (req, res) => {
-  res.send('Hola, soy una nueva ruta');
-});
 
 routerApi(app);
 
