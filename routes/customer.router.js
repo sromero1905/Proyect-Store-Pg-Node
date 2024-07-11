@@ -2,6 +2,7 @@ const express = require('express')
 const CustomerService  = require('../services/customer.service')
 const validatorHandler = require('../middlewares/validator.handler')
 
+
 const {
     createCustomerSchema,
     updateCustomerSchema,
