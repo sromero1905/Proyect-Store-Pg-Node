@@ -1,16 +1,14 @@
 const express = require('express');
 const cors = require('cors');
 const routerApi = require('./routes');
-const {checkApiKey} = require('./middlewares/auth.handler')
-
-require('dotenv').config()
+const { checkApiKey } = require('./middlewares/auth.handler');
 
 const { logErrors, errorHandler, boomErrorHandler } = require('./middlewares/error.handler');
 
 const app = express();
+const port = process.env.PORT || 3000;
 
-
-
+app.use(express.json());
 
 const whitelist = ['http://localhost:8080', 'https://myapp.co'];
 const options = {
@@ -22,29 +20,25 @@ const options = {
     }
   }
 }
-
-
-//ruta de prueba 
-app.get('/nueva-ruta',checkApiKey,(req,res)=>{
-  res.send('hola este es mi server')
-})
-
-
-
-
-//middlewares
 app.use(cors(options));
-app.use(express.json());
+
+require('./utils/auth');
+
+app.get('/', (req, res) => {
+  res.send('Hola mi server en express');
+});
+
+app.get('/nueva-ruta', checkApiKey, (req, res) => {
+  res.send('Hola, soy una nueva ruta');
+});
+
+routerApi(app);
+
 app.use(logErrors);
 app.use(boomErrorHandler);
 app.use(errorHandler);
-require('./utils/auth')
 
 
-
-//routes/server
-routerApi(app);
-const port = process.env.PORT || 3000;
 app.listen(port, () => {
-  console.log('Mi port' +  port);
+  console.log(`Mi port ${port}`);
 });
