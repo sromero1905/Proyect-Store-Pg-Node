@@ -1,7 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const routerApi = require('./routes');
-require('dotenv').config()
+const { checkApiKey } = require('./middlewares/auth.handler');
+require('dotenv').config();
 
 const { logErrors, errorHandler, boomErrorHandler } = require('./middlewares/error.handler');
 
@@ -19,9 +20,13 @@ const options = {
       callback(new Error('no permitido'));
     }
   }
-}
+};
+
 app.use(cors(options));
 
+app.get('/nueva-ruta', checkApiKey, (req, res) => {
+  res.send("hola esta es mi ruta");
+});
 
 routerApi(app);
 
@@ -29,7 +34,6 @@ app.use(logErrors);
 app.use(boomErrorHandler);
 app.use(errorHandler);
 
-
 app.listen(port, () => {
-  console.log('Mi port' +  port);
+  console.log('Mi port ' + port);
 });
