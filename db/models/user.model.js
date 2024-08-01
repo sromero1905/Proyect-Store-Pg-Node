@@ -18,6 +18,11 @@ const UserSchema = {
     allowNull: true,
     type: DataTypes.STRING,
   },
+  recoveryToken: {
+    field:'recovery_token',
+    allowNull: true,
+    type: DataTypes.STRING,
+  },
   role:{
     alowNull: true,
     type:DataTypes.STRING,
