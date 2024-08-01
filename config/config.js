@@ -1,16 +1,18 @@
-require ('dotenv').config()
+require('dotenv').config();
 
-const config =  {
+const config = {
     env: process.env.NODE_ENV || 'dev',
     port: process.env.PORT || 3000,
-    dbUser:process.env.DB_USER ,
+    dbUser: process.env.DB_USER,
     dbPassword: process.env.DB_PASSWORD,
     dbHost: process.env.DB_HOST,
     dbName: process.env.DB_NAME,
-    dbPort:process.env.DB_PORT,
+    dbPort: process.env.DB_PORT,
     apiKey: process.env.API_KEY,
-    jwtSecret: process.env.JWT_SECRET
-}
+    jwtSecret: process.env.JWT_SECRET,
+    mailUser: process.env.USER_MAIL,
+    passwordMail: process.env.PASSWORD_MAIL,
+    hostEmail: process.env.EMAIL_HOST
+};
 
-
-module.exports = { config }
+module.exports = { config };

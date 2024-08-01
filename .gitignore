@@ -221,3 +221,4 @@ pass-hash.js
 pass-verify.js
 token-sign.js
 token-verify.js
+nodemailer.js
